@@ -1,71 +1,29 @@
-/* style.css */
 body {
     font-family: Arial, sans-serif;
-    background-color: #e0f7fa;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    text-align: center;
+    background-color: #f0f0f0;
     margin: 0;
+    padding: 0;
 }
 
 .game-container {
-    text-align: center;
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 1s ease-in-out;
+    margin-top: 100px;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-h1 {
-    color: #00796b;
-}
-
-#current-mountain, #score {
-    font-size: 20px;
-    margin: 10px 0;
-}
-
-#tap-button {
+#climb-button {
     padding: 10px 20px;
-    font-size: 18px;
-    color: white;
-    background-color: #00796b;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-#tap-button:active {
-    transform: scale(0.95);
-}
-
-#tap-button:hover {
-    background-color: #004d40;
+    font-size: 20px;
+    margin-top: 20px;
 }
 
 #unlocked-message {
+    color: green;
     margin-top: 20px;
-    font-size: 18px;
-    color: #d32f2f;
-    animation: bounce 0.5s ease-in-out;
+    font-weight: bold;
 }
 
 @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-30px);
-    }
-    60% {
-        transform: translateY(-15px);
-    }
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0); }
 }
