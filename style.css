@@ -1,13 +1,15 @@
+/* Ensure the body takes the full screen and centers the content */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #e0f7fa;
+    margin: 0;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
 }
 
+/* Styling the game container */
 .game-container {
     text-align: center;
     background-color: #ffffff;
@@ -16,15 +18,18 @@ body {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
+/* Title styling */
 h1 {
     color: #00796b;
     margin-bottom: 20px;
 }
 
+/* Information container */
 .info {
     margin-bottom: 20px;
 }
 
+/* Button styling */
 #climb-button {
     background-color: #00796b;
     color: white;
@@ -40,15 +45,20 @@ h1 {
     background-color: #004d40;
 }
 
+/* Message styling with bounce animation */
 #unlocked-message {
     margin-top: 20px;
     color: #388e3c;
     font-weight: bold;
-    animation: bounce 0.5s ease-in-out;
 }
 
 @keyframes bounce {
     0% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
     100% { transform: translateY(0); }
+}
+
+/* Applied bounce animation when unlocked */
+.unlocked-bounce {
+    animation: bounce 0.5s ease-in-out;
 }

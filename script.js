@@ -1,7 +1,7 @@
-// Initialize Telegram Web App object
+// Initialize the Telegram Web App object
 const tg = window.Telegram.WebApp;
 
-// Define the mountain levels and score required to unlock them
+// Define the mountains and the score needed to unlock each
 const mountains = [
     { name: "Mount Fuji", height: 3776, scoreNeeded: 10 },
     { name: "Mount Kilimanjaro", height: 5895, scoreNeeded: 20 },
@@ -10,33 +10,38 @@ const mountains = [
     { name: "Mount Everest", height: 8848, scoreNeeded: 50 }
 ];
 
-// Initialize game variables
+// Initialize variables for the game
 let score = 0;
 let currentLevel = -1;
 
-// Get HTML elements
+// Get the HTML elements
 const scoreElement = document.getElementById("score");
 const mountainElement = document.getElementById("current-mountain");
 const unlockedMessageElement = document.getElementById("unlocked-message");
 const climbButton = document.getElementById("climb-button");
 
-// Function to update the score and check for mountain unlock
-function updateScore() {
+// Debugging: Check if the DOM elements are being selected correctly
+console.log(climbButton);  // Should log the button element
+
+// Add event listener to the button for user interaction
+climbButton.addEventListener("click", function() {
+    // Increment the score
     score++;
+    console.log("Button clicked! Current score:", score);  // Debugging log
     scoreElement.innerText = `Score: ${score}`;
 
-    // Check if a new mountain is unlocked
+    // Check if the user has unlocked a new mountain level
     if (currentLevel < mountains.length - 1 && score >= mountains[currentLevel + 1].scoreNeeded) {
         currentLevel++;
         const mountain = mountains[currentLevel];
         mountainElement.innerText = `Current Mountain: ${mountain.name} (${mountain.height} meters)`;
         unlockedMessageElement.innerText = `You've unlocked ${mountain.name} at ${mountain.height} meters!`;
 
-        // Bounce animation
-        unlockedMessageElement.style.animation = "bounce 0.5s ease-in-out";
-        setTimeout(() => unlockedMessageElement.style.animation = "", 500);
+        // Add bounce animation when a new mountain is unlocked
+        unlockedMessageElement.classList.add("unlocked-bounce");
+        setTimeout(() => unlockedMessageElement.classList.remove("unlocked-bounce"), 500);
 
-        // Send score and mountain info to the Telegram bot
+        // Send the updated score and mountain info to Telegram bot
         tg.sendData(JSON.stringify({
             message: `Unlocked ${mountain.name}`,
             score: score
@@ -44,10 +49,7 @@ function updateScore() {
     } else if (currentLevel >= mountains.length - 1) {
         unlockedMessageElement.innerText = "You've reached the top of Mount Everest!";
     }
-}
+});
 
-// Event listener for climb button
-climbButton.addEventListener("click", updateScore);
-
-// Expand the web app UI in Telegram
+// Expand the web app within the Telegram window
 tg.expand();
