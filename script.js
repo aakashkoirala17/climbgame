@@ -20,14 +20,26 @@ const mountainElement = document.getElementById("current-mountain");
 const unlockedMessageElement = document.getElementById("unlocked-message");
 const climbButton = document.getElementById("climb-button");
 
-// Debugging: Check if the DOM elements are being selected correctly
-console.log(climbButton);  // Should log the button element
+// Check if there's a previously stored score (from the bot)
+tg.onEvent("web_app_data", function(data) {
+    const parsedData = JSON.parse(data);
+    if (parsedData.score) {
+        score = parsedData.score;
+        currentLevel = parsedData.currentLevel;
+
+        // Update the UI with the saved data
+        scoreElement.innerText = `Score: ${score}`;
+        if (currentLevel >= 0) {
+            const mountain = mountains[currentLevel];
+            mountainElement.innerText = `Current Mountain: ${mountain.name} (${mountain.height} meters)`;
+        }
+    }
+});
 
 // Add event listener to the button for user interaction
 climbButton.addEventListener("click", function() {
     // Increment the score
     score++;
-    console.log("Button clicked! Current score:", score);  // Debugging log
     scoreElement.innerText = `Score: ${score}`;
 
     // Check if the user has unlocked a new mountain level
@@ -40,16 +52,14 @@ climbButton.addEventListener("click", function() {
         // Add bounce animation when a new mountain is unlocked
         unlockedMessageElement.classList.add("unlocked-bounce");
         setTimeout(() => unlockedMessageElement.classList.remove("unlocked-bounce"), 500);
-
-        // Send the updated score and mountain info to Telegram bot
-        tg.sendData(JSON.stringify({
-            message: `Unlocked ${mountain.name}`,
-            score: score
-        }));
-    } else if (currentLevel >= mountains.length - 1) {
-        unlockedMessageElement.innerText = "You've reached the top of Mount Everest!";
     }
+
+    // Send the updated score and mountain info to Telegram bot
+    tg.sendData(JSON.stringify({
+        score: score,
+        currentLevel: currentLevel
+    }));
 });
 
 // Expand the web app within the Telegram window
-
+tg.expand();
