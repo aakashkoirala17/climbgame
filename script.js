@@ -52,4 +52,4 @@ climbButton.addEventListener("click", function() {
 });
 
 // Expand the web app within the Telegram window
-tg.expand();
+
