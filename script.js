@@ -20,14 +20,14 @@ const mountainElement = document.getElementById("current-mountain");
 const unlockedMessageElement = document.getElementById("unlocked-message");
 const climbButton = document.getElementById("climb-button");
 
-// Check if there's a previously stored score (from the bot)
+// Event listener to handle data sent from the bot to the web app
 tg.onEvent("web_app_data", function(data) {
     const parsedData = JSON.parse(data);
-    if (parsedData.score) {
+    if (parsedData.score !== undefined) {
         score = parsedData.score;
         currentLevel = parsedData.currentLevel;
 
-        // Update the UI with the saved data
+        // Update the UI with the saved score and mountain
         scoreElement.innerText = `Score: ${score}`;
         if (currentLevel >= 0) {
             const mountain = mountains[currentLevel];
