@@ -1,5 +1,6 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
+import json
 
 # Function to start the bot and display the "Play Game" button
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -21,7 +22,6 @@ async def handle_webapp_data(update: Update, context: ContextTypes.DEFAULT_TYPE)
     await update.message.reply_text(f"Data received from web app: {message} with score {score}")
 
 def main() -> None:
-    # Replace 'YOUR_BOT_TOKEN' with your actual bot token
     application = ApplicationBuilder().token("7416393089:AAFKnvQSpPlrCU92JAo8vu7Zr6Pgdzj1gl0").build()
 
     # Command handler to start the game
