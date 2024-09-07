@@ -20,9 +20,11 @@ const mountainElement = document.getElementById("current-mountain");
 const unlockedMessageElement = document.getElementById("unlocked-message");
 const climbButton = document.getElementById("climb-button");
 
-// Event listener to handle data sent from the bot to the web app
+// Listen for data sent from the bot to the web app (when the app is opened)
 tg.onEvent("web_app_data", function(data) {
     const parsedData = JSON.parse(data);
+    
+    // Set the score and level if data is present
     if (parsedData.score !== undefined) {
         score = parsedData.score;
         currentLevel = parsedData.currentLevel;
@@ -54,7 +56,7 @@ climbButton.addEventListener("click", function() {
         setTimeout(() => unlockedMessageElement.classList.remove("unlocked-bounce"), 500);
     }
 
-    // Send the updated score and mountain info to Telegram bot
+    // Send the updated score and mountain info to the Telegram bot
     tg.sendData(JSON.stringify({
         score: score,
         currentLevel: currentLevel
